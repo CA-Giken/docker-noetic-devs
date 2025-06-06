@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  ensenso:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DISPLAY=:0
+    volumes:
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+      - type: bind
+        source: ~/ros_ws2
+        target: /root/catkin_ws/src
+    stdin_open: true
+    tty: true
+    privileged: true
+    network_mode: host
+    depends_on:
+      - rosnoetic
+  rosnoetic:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    environment:
+      - DISPLAY=:0
+      - QT_X11_NO_MITSHM=1
+    working_dir: /root
+    volumes:
+      - type: bind
+        source: ~/ros_ws1
+        target: /root/catkin_ws/src
+      - type: bind
+        source: ~/src
+        target: /root/src
+      - type: bind
+        source: ~/.ros/log
+        target: /root/.ros/log
+      - type: bind
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix
+    stdin_open: true
+    tty: true
+    privileged: true
+    network_mode: host
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    #   - /dev/ttyACM0:/dev/ttyACM0
