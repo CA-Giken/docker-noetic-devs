@@ -12,8 +12,11 @@ services:
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
       - type: bind
-        source: ~/ros_ws2
+        source: ~/catkin_src2
         target: /root/catkin_ws/src
+      - type: bind
+        source: ~/ros_src2
+        target: /root/src
     stdin_open: true
     tty: true
     privileged: true
@@ -29,12 +32,6 @@ services:
       - QT_X11_NO_MITSHM=1
     working_dir: /root
     volumes:
-      - type: bind
-        source: ~/ros_ws1
-        target: /root/catkin_ws/src
-      - type: bind
-        source: ~/src
-        target: /root/src
       - type: bind
         source: ~/.ros/log
         target: /root/.ros/log
