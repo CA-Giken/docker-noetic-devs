@@ -1,13 +1,17 @@
 version: "3.9"
 
 services:
-  ensenso:
+  std:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       - DISPLAY=:0
+      - DISABLE_ROS1_EOL_WARNINGS=1
     volumes:
+      - type: bind
+        source: ~/.ros/log
+        target: /root/.ros/log
       - type: bind
         source: /tmp/.X11-unix
         target: /tmp/.X11-unix
@@ -17,27 +21,6 @@ services:
       - type: bind
         source: ~/ros_src2
         target: /root/src
-    stdin_open: true
-    tty: true
-    privileged: true
-    network_mode: host
-    depends_on:
-      - rosnoetic
-  rosnoetic:
-    build:
-      context: ../
-      dockerfile: Dockerfile
-    environment:
-      - DISPLAY=:0
-      - QT_X11_NO_MITSHM=1
-    working_dir: /root
-    volumes:
-      - type: bind
-        source: ~/.ros/log
-        target: /root/.ros/log
-      - type: bind
-        source: /tmp/.X11-unix
-        target: /tmp/.X11-unix
     stdin_open: true
     tty: true
     privileged: true

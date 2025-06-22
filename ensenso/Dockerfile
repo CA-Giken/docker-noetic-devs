@@ -1,5 +1,20 @@
 FROM ghcr.io/ca-giken/rosnoetic-base:main
 
+# Install VT common
+RUN apt-get update -q && apt-get install -y \
+    netcat \
+    wmctrl
+
+# Install VT optionals
+#RUN apt update
+#RUN apt install -y ros-noetic-jsk-visualization
+# Rovi_industrial setup
+#RUN pip install git+https://github.com/UniversalRobots/RTDE_Python_Client_Library.git
+
+# Create VT workspace
+RUN mkdir -p /root/catkin_ws/src
+RUN mkdir /ssd
+
 # Install Ensenso SDK
 RUN apt-get update -q && apt-get install -y \
     libusb-1.0-0-dev \
@@ -15,9 +30,6 @@ RUN apt-get update -q && \
 
 # SDKのパスを環境変数で設定
 ENV ENSENSO_INSTALL=/opt/ensenso
-
-# Create catkin workspace
-RUN mkdir -p /root/catkin_ws/src
 
 # Set the entrypoint
 COPY ./entrypoint.sh /root/entrypoint.sh
