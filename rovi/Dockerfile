@@ -2,7 +2,7 @@ FROM ghcr.io/ca-giken/rosnoetic-base:main
 
 # Update tools
 RUN apt-get update -q && apt-get install -y \
-    intltool libgstreamer*-dev
+    intltool libgstreamer*-dev netcat
 
 # Install ROVI SDK
 RUN apt-get update -q && apt-get install -y \
@@ -18,6 +18,7 @@ RUN cd aravis-0.6.0 && ./configure && make && make install
 RUN echo "/usr/local/lib" | tee -a /etc/ld.so.conf && ldconfig
 
 # install Rviz plugin
+RUN apt update
 RUN apt install -y ros-noetic-jsk-visualization
 # Rovi_industrial setup
 RUN pip install git+https://github.com/UniversalRobots/RTDE_Python_Client_Library.git
