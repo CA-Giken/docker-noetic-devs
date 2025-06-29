@@ -10,6 +10,9 @@ services:
       - DISABLE_ROS1_EOL_WARNINGS=1
     volumes:
       - type: bind
+        source: /dev
+        target: /dev
+      - type: bind
         source: ~/.ros/log
         target: /root/.ros/log
       - type: bind
@@ -25,6 +28,4 @@ services:
     tty: true
     privileged: true
     network_mode: host
-    # devices:
-    #   - /dev/ttyUSB0:/dev/ttyUSB0
-    #   - /dev/ttyACM0:/dev/ttyACM0
+
