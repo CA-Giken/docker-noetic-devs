@@ -22,10 +22,11 @@ services:
         source: ~/catkin_ws/src
         target: /root/catkin_ws/src
       - type: bind
-        source: /ssd
-        target: /ssd
+        source: ~/storage
+        target: /storage
     stdin_open: true
     tty: true
     privileged: true
     network_mode: host
+
 
