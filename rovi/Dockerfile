@@ -30,6 +30,10 @@ RUN cd aravis-0.6.0 && ./configure && make && make install
 #RUN if ! grep /usr/local/lib /etc/ld.so.conf ; then echo "/usr/local/lib" | tee -a /etc/ld.so.conf && ldconfig ; fi
 RUN echo "/usr/local/lib" | tee -a /etc/ld.so.conf && ldconfig
 
+RUN npm install date-utils
+RUN pip install pathlib2
+RUN pip install numexpr==2.7.3
+
 # Set the entrypoint
 COPY ./entrypoint.sh /root/entrypoint.sh
 ENTRYPOINT ["/bin/bash", "-c", "/root/entrypoint.sh"]
