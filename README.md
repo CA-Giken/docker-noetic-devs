@@ -35,3 +35,29 @@ sudo apt update
 ```sh
 sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
+
+##  トラブルシューティング
+
+1. docker compoe upに失敗する
+~~~
+Dockerfile:1
+---------------------------------------------------------------------------
+   1 | >>> FROM ghcr.io/ca-giken/rosnoetic-base:main
+   2
+   3
+---------------------------------------------------------------------------
+failed to solve: failed to register layer: archive/tar: invalid tar header
+~~~
+containerdバージョンが古いことで起きる。upgradeで対応
+~~~
+sudo apt upgrade
+~~~
+
+2. sudoでないと実行できない  
+スーパーユーザー権限でなくても`docker`コマンドを実行できるように`docker`ユーザーグループに追加します。
+
+```
+sudo usermod -aG docker ros
+```
+
+この後、リブートする。
