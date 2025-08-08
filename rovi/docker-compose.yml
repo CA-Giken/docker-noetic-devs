@@ -13,11 +13,11 @@ services:
         source: /dev
         target: /dev
       - type: bind
-        source: ~/.ros/log
-        target: /root/.ros/log
+        source: ~/.ros
+        target: /root/.ros
       - type: bind
-        source: /tmp/.X11-unix
-        target: /tmp/.X11-unix
+        source: /run/user/1000/dkrtmp
+        target: /tmp
       - type: bind
         source: ~/catkin_ws/src
         target: /root/catkin_ws/src
