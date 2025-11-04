@@ -22,6 +22,11 @@ RUN cd /tmp && dpkg -i ensenso-sdk-4.*.deb
 # SDKのパスを環境変数で設定
 ENV ENSENSO_INSTALL=/opt/ensenso
 
+RUN pip install $ENSENSO_INSTALL/development/python
+
+RUN pip install pymcprotocol
+
+
 # Set the entrypoint
 COPY ./entrypoint.sh /root/entrypoint.sh
 ENTRYPOINT ["/bin/bash", "-c", "/root/entrypoint.sh"]
